@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <SearchForm />
-    <SectionTitle :text="'Posts'" />
+      <div v-if="searchStore.state.postsOfUsers.length !==0">
+        <SearchResults/>
+      </div>
+    <SectionTitle class="mt-3" :text="'Posts'" />
     <div v-if="mainStore.state.loaded === false">
       <p>Loading</p>
     </div>
@@ -17,15 +19,17 @@
 
 <script setup>
 import mainStore from "../store/mainStore";
+import searchStore from "@/store/searchStore";
 import { computed, inject } from "@vue/runtime-core";
 import chunk from "lodash.chunk";
-import SearchForm from "../components/SearchForm.vue";
 import SinglePost from "../components/SinglePost.vue";
 import ContentCard from "../components/ContentCard.vue";
 import SectionTitle from '../components/SectionTitle.vue'
-inject[mainStore];
+import SearchResults from '../components/SearchResults.vue'
+
+inject[mainStore, searchStore];
 
 mainStore.methods.fetchAll();
 
-const groupedPosts = computed(() => chunk(mainStore.state.posts, 3));
+const groupedPosts = computed(() => chunk(mainStore.state.posts, 4));
 </script>

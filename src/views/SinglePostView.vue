@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <div v-if="searchStore.state.postsOfUsers.length !== 0">
+      <SearchResults />
+    </div>
     <SinglePost :inList="false" />
     <SectionTitle :text="'Comments'" />
     <ContentCard
@@ -20,10 +23,12 @@ import SinglePost from "../components/SinglePost.vue";
 import ContentCard from "../components/ContentCard.vue";
 import SingleComment from "../components/SingleComment.vue";
 import SectionTitle from "../components/SectionTitle.vue";
-inject[mainStore];
+import SearchResults from '../components/SearchResults.vue'
+import searchStore from "@/store/searchStore";
+
+inject[mainStore, searchStore];
 
 let routeId = parseInt(route.params.id, 10);
-console.log(routeId);
 
 async function fetchData(routeId) {
   await mainStore.methods.fetchPost(routeId);
@@ -32,6 +37,7 @@ async function fetchData(routeId) {
   await mainStore.methods.fetchCommentsOfPost(routeId);
 }
 fetchData(routeId);
+mainStore.methods.fetchAll();
 </script>
 
 <style>

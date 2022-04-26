@@ -1,60 +1,41 @@
 <template>
-  <form @submit.prevent="findPostsByUser(query, mainStore.state.posts)">
+  <form
+    class="d-flex"
+    @submit.prevent="searchStore.methods.findPostsByUser(searchQuery, mainStore.state.posts)"
+  >
     <div class="form-group">
-      <label for="userName">User search</label>
       <input
-        v-model="query"
+        v-model="searchQuery"
         type="text"
         class="form-control"
         id="userName"
         placeholder="Insert user name"
       />
     </div>
-    <button type="submit" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn-sm btn-primary">Search</button>
   </form>
 
-  <div v-if="postsOfUsers.length !== 0">
+  <!-- <div v-if="searchStore.state.postsOfUsers.length !== 0">
     <SectionTitle :text="'Search Results'" />
-    <ContentCard v-for="post in postsOfUsers" :key="post.id" :classes="'card'">
+    <ContentCard v-for="post in searchStore.state.postsOfUsers" :key="post.id" :classes="'card'">
       <SinglePost :inList="true" :post="post" />
     </ContentCard>
-  </div>
+  </div> -->
 </template>
 
 <script setup>
-import { ref } from "@vue/reactivity";
-import { inject } from "@vue/runtime-core";
+import { inject, ref } from "@vue/runtime-core";
 import mainStore from "../store/mainStore";
-import SectionTitle from "./SectionTitle.vue";
-import SinglePost from "./SinglePost.vue";
-import ContentCard from "./ContentCard.vue";
+import searchStore from "../store/searchStore";
+// import SectionTitle from "./SectionTitle.vue";
+// import SinglePost from "./SinglePost.vue";
+// import ContentCard from "./ContentCard.vue";
 
-inject[mainStore];
-const query = ref("");
-const postsOfUsers = ref([]);
-const userSearch = (query, users) => {
-  console.log(
-    users.filter(({ name }) =>
-      name.toLowerCase().trim().includes(query.toLowerCase().trim())
-    )
-  );
-  return users.filter(({ name }) =>
-    name.toLowerCase().trim().includes(query.toLowerCase().trim())
-  );
-};
+inject[mainStore, searchStore];
 
-const findPostsByUser = (query, posts) => {
-  postsOfUsers.value = [];
-  const filteredUsers = userSearch(query, mainStore.state.users);
-  for (const post of posts) {
-    for (const user of filteredUsers) {
-      if (post.userId === user.id) {
-        postsOfUsers.value.push(post);
-      }
-    }
-  }
-  console.log(postsOfUsers.value);
-};
+
+let searchQuery = ref("");
+
 </script>
 
 <style>

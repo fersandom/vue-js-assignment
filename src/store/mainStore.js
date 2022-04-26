@@ -7,67 +7,67 @@ const state = reactive({
     users: Array,
     comments: Array,
     post: Object,
-    user:Object,
-    filteredComments:Array,
+    user: Object,
+    filteredComments: Array,
+    postsUrl: "https://jsonplaceholder.typicode.com/posts",
+    usersUrl: `https://jsonplaceholder.typicode.com/users/`,
+    commentsUrl: "https://jsonplaceholder.typicode.com/comments",
+    singlePostUrl: `https://jsonplaceholder.typicode.com/posts/`,
+    commentsOfPostUrl: `https://jsonplaceholder.typicode.com/posts/`
 });
 
 const methods = {
     async fetchAll() {
         await axios
-            .get("https://jsonplaceholder.typicode.com/posts")
+            .get(state.postsUrl)
             .then((response) => {
                 state.posts = response.data;
-                console.log(state.posts);
             });
 
         await axios
-            .get(`https://jsonplaceholder.typicode.com/users/`)
+            .get(state.usersUrl)
             .then((response) => {
                 state.users = response.data;
-                console.log(state.users);
             });
 
         await axios
-            .get("https://jsonplaceholder.typicode.com/comments")
+            .get(state.commentsUrl)
             .then((response) => {
                 state.comments = response.data;
-                console.log(state.comments);
             });
-            state.loaded = true
+        state.loaded = true
     },
+
 
     async fetchPost(id) {
         state.loaded = false;
         await axios
-            .get(`https://jsonplaceholder.typicode.com/posts/${id}`)
+            .get(state.singlePostUrl + `${id}`)
             .then((response) => {
                 state.post = response.data;
             });
-        console.log(state.post);
     },
 
-    async fetchCommentsOfPost(id){
+    async fetchCommentsOfPost(id) {
         await axios
-            .get(`https://jsonplaceholder.typicode.com/posts/${id}/comments`)
+            .get(state.commentsOfPostUrl + `${id}/comments`)
             .then((response) => {
                 state.filteredComments = response.data;
-                console.log(state.filteredComments);
 
             });
     },
 
-    async fetchUser(id){
+    async fetchUser(id) {
         await axios
-            .get("https://jsonplaceholder.typicode.com/users")
+            .get(state.usersUrl)
             .then((response) => {
-                state.users= response.data;
+                state.users = response.data;
                 state.user = state.users.find(user => user.id === id);
-                console.log(state.user);
 
             });
     },
 
-    
+
 };
 
 export default { state: readonly(state), methods };
