@@ -3,10 +3,14 @@ import mainStore from "./mainStore";
 
 const state = reactive({
     postsOfUsers: [],
-    query: String
+    query: String,
+    isSearch: false,
+    errorMessage: "",
+    isError: false
 });
 
 const methods = reactive({
+
     userSearch(query, users) {
         return users.filter(({ name }) =>
             name.toLowerCase().trim().includes(query.toLowerCase().trim())
@@ -14,23 +18,36 @@ const methods = reactive({
     },
 
     findPostsByUser(query, posts) {
-        if (mainStore.state.loaded === false) {
-            mainStore.methods.fetchAll();
+
+        if (query.length < 3) {
+            state.isError = true;
+            state.errorMessage = "Searches must be longer than three letters"
         }
-        this.setQuery(query)
-        state.postsOfUsers = [];
-        const filteredUsers = methods.userSearch(state.query, mainStore.state.users);
-        for (const post of posts) {
-            for (const user of filteredUsers) {
-                if (post.userId === user.id) {
-                    state.postsOfUsers.push(post);
+
+        else if (query.length >= 3) {
+            state.postsOfUsers = [];
+            const filteredUsers = methods.userSearch(state.query, mainStore.state.users);
+            if (filteredUsers.length === 0) {
+                state.isError = true;
+                state.errorMessage = "No posts found"
+            }
+            for (const post of posts) {
+                for (const user of filteredUsers) {
+                    if (post.userId === user.id) {
+                        state.postsOfUsers.push(post);
+                    }
                 }
             }
         }
+
+
     },
 
-    setQuery(query) {
+    setQueryAndSearch(query) {
         state.query = query;
+        state.isSearch = true;
+        state.isError = false;
+        this.findPostsByUser(state.query, mainStore.state.posts)
     }
 });
 

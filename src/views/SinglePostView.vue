@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <div v-if="searchStore.state.postsOfUsers.length !== 0">
-      <SearchResults />
-    </div>
+    <Transition name="in-left">
+      <div v-if="searchStore.state.isSearch === true">
+        <SearchResults />
+      </div>
+    </Transition>
     <SinglePost :inList="false" />
     <SectionTitle :text="'Comments'" />
     <ContentCard
@@ -23,10 +25,10 @@ import SinglePost from "../components/SinglePost.vue";
 import ContentCard from "../components/ContentCard.vue";
 import SingleComment from "../components/SingleComment.vue";
 import SectionTitle from "../components/SectionTitle.vue";
-import SearchResults from '../components/SearchResults.vue'
+import SearchResults from "../components/SearchResults.vue";
 import searchStore from "@/store/searchStore";
 
-inject[mainStore, searchStore];
+inject[(mainStore, searchStore)];
 
 let routeId = parseInt(route.params.id, 10);
 

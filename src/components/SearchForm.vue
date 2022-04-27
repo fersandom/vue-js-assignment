@@ -1,7 +1,7 @@
 <template>
   <form
     class="d-flex"
-    @submit.prevent="searchStore.methods.findPostsByUser(searchQuery, mainStore.state.posts)"
+    @submit.prevent="searchStore.methods.setQueryAndSearch(searchQuery)"
   >
     <div class="form-group">
       <input
