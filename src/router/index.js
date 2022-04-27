@@ -12,6 +12,10 @@ const routes = [
     path: '/post/:id',
     name: 'post',
     component: SinglePostView,
+  },
+  {
+    path: '/',
+    redirect: 'posts'
   }
 ]
 
