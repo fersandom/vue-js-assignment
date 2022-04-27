@@ -1,18 +1,16 @@
 <template>
   <div class="container">
-    <Transition name="in-left">
-      <div v-if="searchStore.state.isSearch === true">
-        <SearchResults />
-      </div>
-    </Transition>
-    <SinglePost :inList="false" />
-    <SectionTitle :text="'Comments'" />
-    <ContentCard
-      v-for="comment in mainStore.state.filteredComments"
-      :key="comment.id"
-    >
-      <SingleComment :comment="comment" />
-    </ContentCard>
+    <div v-if="searchStore.state.isSearch === true">
+      <SearchResults />
+    </div>
+        <SinglePost :inList="false" />
+        <SectionTitle :text="'Comments'" />
+        <ContentCard
+          v-for="comment in mainStore.state.filteredComments"
+          :key="comment.id"
+        >
+          <SingleComment :comment="comment" />
+        </ContentCard>
   </div>
 </template>
 

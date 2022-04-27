@@ -12,7 +12,7 @@
         placeholder="Insert user name"
       />
     </div>
-    <button type="submit" class="btn-sm btn-primary">Search</button>
+    <button type="submit" class="btn-sm btn-primary" @click="searchStore.state.isSearch=false">Search</button>
   </form>
 
   <!-- <div v-if="searchStore.state.postsOfUsers.length !== 0">

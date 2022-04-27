@@ -22,6 +22,7 @@ const methods = reactive({
         if (query.length < 3) {
             state.isError = true;
             state.errorMessage = "Searches must be longer than three letters"
+            state.isSearch = true;
         }
 
         else if (query.length >= 3) {
@@ -38,14 +39,15 @@ const methods = reactive({
                     }
                 }
             }
+            state.isSearch = true;
         }
 
 
     },
 
     setQueryAndSearch(query) {
+        state.isSearch = false;
         state.query = query;
-        state.isSearch = true;
         state.isError = false;
         this.findPostsByUser(state.query, mainStore.state.posts)
     }
