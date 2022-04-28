@@ -13,11 +13,8 @@
 </template>
 
 <script setup>
-const { inject } = require("@vue/runtime-core");
-const { default: mainStore } = require("./store/mainStore");
 import SearchForm from "./components/SearchForm.vue";
 
-inject[mainStore];
 </script>
 
 

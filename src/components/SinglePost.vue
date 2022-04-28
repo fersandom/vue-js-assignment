@@ -38,7 +38,11 @@ inject[mainStore];
 
 const props = defineProps({
   post: Object,
-  inList: Boolean,
+  inList: Boolean,  /*
+                    *Determines the origin of the data
+                    *If inList data will be processed from arrays in mainStore.state
+                    *If !inList data will come from the single objects in mainStore.state 
+                    */
 });
 </script>
 

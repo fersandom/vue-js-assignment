@@ -11,6 +11,7 @@ const state = reactive({
 
 const methods = reactive({
 
+    //Searches the name of the user
     userSearch(query, users) {
         return users.filter(({ name }) =>
             name.toLowerCase().trim().includes(query.toLowerCase().trim())
@@ -24,8 +25,7 @@ const methods = reactive({
             state.errorMessage = "Searches must be longer than three letters"
             state.isSearch = true;
         }
-
-        else if (query.length >= 3) {
+        else if (query.length >= 3) {           //Checks if search returns no values,
             state.postsOfUsers = [];
             const filteredUsers = methods.userSearch(state.query, mainStore.state.users);
             if (filteredUsers.length === 0) {

@@ -10,7 +10,7 @@
     </div>
     <div v-else-if="mainStore.state.loaded === true">
       <div v-for="(posts, index) in groupedPosts" :key="index" class="row">
-        <ContentCard v-for="post in posts" :key="post.id" :classes="'col card overflow-auto'" style="height: 400px; ">
+        <ContentCard v-for="post in posts" :key="post.id" :classes="'col-lg card overflow-auto'" style="height: 400px; ">
           <SinglePost :inList="true" :post="post" />
         </ContentCard>
       </div>
@@ -34,7 +34,7 @@ inject[(mainStore, searchStore)];
 
 mainStore.methods.fetchAll();
 
-const groupedPosts = computed(() => chunk(mainStore.state.posts, 4));
+const groupedPosts = computed(() => chunk(mainStore.state.posts, 4)); //Groups the posts so they can be shown in rows
 </script>
 
 <style>
