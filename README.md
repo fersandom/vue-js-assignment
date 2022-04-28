@@ -19,26 +19,12 @@ In order to use the project download the source code from github or clone the re
 ```
 git clone https://github.com/fersandom/vue-js-assignment
 ```
-
-## Project setup
+Install dependencies
 ```
 npm install
 ```
-
-### Compiles and hot-reloads for development
+And run
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
