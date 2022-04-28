@@ -13,6 +13,8 @@ Bootstrap 5 has been used to provide styling. No external UI libraries have been
 
 State is managed with Vue 3's provide and inject options. 
 
+The approximate time to finish the project has been of 15 hours.
+
 In order to use the project download the source code from github or clone the repository:
 ```
 git clone https://github.com/fersandom/vue-js-assignment
